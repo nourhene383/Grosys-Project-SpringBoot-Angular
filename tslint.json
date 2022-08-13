@@ -101,6 +101,7 @@
     "typedef-whitespace": {
       "options": [
         {
+
           "call-signature": "nospace",
           "index-signature": "nospace",
           "parameter": "nospace",
@@ -125,6 +126,7 @@
     },
     "whitespace": {
       "options": [
+        true,
         "check-branch",
         "check-decl",
         "check-operator",
