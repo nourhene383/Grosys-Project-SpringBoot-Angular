@@ -12,12 +12,14 @@
       <span class="logo-single"></span>
     </a>
     <h6 class="mb-4">Login</h6>
-
-    <form #loginForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+    <div *ngIf="isLoginError" class="alert">
+      Incorrect username or password !
+    </div>
+    <form #loginForm="ngForm" novalidate (ngSubmit)="onSubmit(username.value,password.value)">
       <label class="form-group has-float-label">
-        <input class="form-control" required email ngModel #email="ngModel" name="email" [(ngModel)]="emailModel" />
-        <span>{{ 'user.email' | translate }}</span>
-        <div *ngIf="!email.valid && loginForm.submitted" class="invalid-tooltip">Email is required!</div>
+        <input class="form-control" required  ngModel #username="ngModel" name="username" [(ngModel)]="usernameModel" />
+        <span>{{ 'user.username' | translate }}</span>
+        <div *ngIf="!username.valid && loginForm.submitted" class="invalid-tooltip">Username is required!</div>
       </label>
       <label class="form-group has-float-label">
         <input class="form-control" type="password" placeholder="" required ngModel #password="ngModel" name="password"

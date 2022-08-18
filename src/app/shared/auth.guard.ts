@@ -17,17 +17,8 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   ): Promise<boolean> {
     const currentUser = await this.authService.getUser();
 
-    if (currentUser) {
-      if (route.data && route.data.roles) {
-        if (route.data.roles.includes(currentUser.role)) {
-          return true;
-        } else {
-          this.router.navigate(['/unauthorized']);
-          return false;
-        }
-      } else {
-        return true;
-      }
+    if (localStorage.getItem('userToken') != null) {
+      return true;
     } else {
       this.router.navigate(['/user/login']);
       return false;
@@ -36,17 +27,8 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     const currentUser = await this.authService.getUser();
 
-    if (currentUser) {
-      if (route.data && route.data.roles) {
-        if (route.data.roles.includes(currentUser.role)) {
-          return true;
-        } else {
-          this.router.navigate(['/unauthorized']);
-          return false;
-        }
-      } else {
-        return true;
-      }
+    if (localStorage.getItem('userToken') != null) {
+    return true;
     } else {
       this.router.navigate(['/user/login']);
       return false;

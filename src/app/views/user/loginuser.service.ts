@@ -1,20 +1,25 @@
-import {HttpClient} from "@angular/common/http";
-import {UserModel} from "./user.model";
-import {Observable} from "rxjs";
-import {Injectable} from "@angular/core";
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 
 @Injectable({providedIn: 'root'})
 export class LoginuserService {
+  readonly rooturl = 'http://127.0.0.1:8082';
+
   constructor(private http: HttpClient) {
   }
 
-  loginUser(username: string, password: string){
-   return this.http.post<UserModel>('http://127.0.0.1:8082/api/users',
-      {
-        username : username,
-        password : password
-      }
-    );
+  // tslint:disable-next-line:typedef
+  loginUser(username, password) {
+    const body = new URLSearchParams();
+    body.set('username', username);
+    body.set('password', password);
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    };
+    const payload = new HttpParams()
+      .set('username', username)
+      .set('password', password);
+    return this.http.post(this.rooturl + '/api/login', body.toString(), options);
 
   }
 }
